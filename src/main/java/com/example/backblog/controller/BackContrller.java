@@ -25,14 +25,14 @@ public class BackContrller {
         return backService.getApi();
     }
 
-    @PutMapping("/apis/{id}")
+    @PutMapping("/api/{id}")
     public Long updatePost(@PathVariable Long id, @RequestBody BackRequestDto requestDto){
         return backService.updateApis(id,requestDto);
     }
 
-    @DeleteMapping("/apis")
-    public void deletePost(@RequestParam Long id){
-        backService.deleteApis(id);
+    @DeleteMapping("/api")
+    public void deletePost(@RequestParam Long id, @RequestBody BackRequestDto requestDto){
+        backService.deleteApis(id,requestDto);
     }
 
 }

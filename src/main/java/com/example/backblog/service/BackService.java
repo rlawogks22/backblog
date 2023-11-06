@@ -25,22 +25,29 @@ public class BackService {
         return backResponseDto;
     }
 
-
     public List<BackResponseDto> getApi() {
         return backRepository.findAll().stream().map(BackResponseDto::new).toList();
     }
-
-
     public Long updateApis(Long id, BackRequestDto requestDto) {
         Back back = findBack(id);
+        if(back.getPw().equals(requestDto.getPw())){
+            back.update(requestDto);
+        } else{
+            System.out.println("비밀번호가 일치하지 안습니다.");
+        }
+        System.out.println("계시글 수정 완료");
 
-        back.update(requestDto);
         return id;
     }
 
-    public void deleteApis(Long id) {
+    public void deleteApis(Long id,BackRequestDto requestDto) {
         Back back = findBack(id);
-        backRepository.delete(back);
+        if(back.getPw().equals(requestDto.getPw())){
+            backRepository.delete(back);
+        } else{
+            System.out.println("비밀번호가 일치하지 안습니다.");
+        }
+        System.out.println("계시글 삭제 완료");
     }
 
     private Back findBack(Long id){

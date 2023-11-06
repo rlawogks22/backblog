@@ -24,11 +24,14 @@ public class Back extends Timestamped {
     private String name;
     @Column(name = "contents", nullable = false, length = 500)
     private String contents;
+    @Column(name = "pw", nullable = false)
+    private String pw;//비밀번호
 
 
     public Back(BackRequestDto requestDto) {
         this.title = requestDto.getTitle();
         this.name = requestDto.getName();
+        this.pw = requestDto.getPw();
         this.contents = requestDto.getContents();
     }
 
