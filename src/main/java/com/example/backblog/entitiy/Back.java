@@ -8,37 +8,41 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+@Entity
 @Getter
 @Setter
-@Table(name = "back")
-@Entity//JPA 매핑
 @NoArgsConstructor
+@Table(name = "users")
 public class Back extends Timestamped {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "title", nullable = false)
-    private String title;
-    @Column(name = "name", nullable = false)
-    private String name;
-    @Column(name = "contents", nullable = false, length = 500)
-    private String contents;
-    @Column(name = "pw", nullable = false)
-    private String pw;//비밀번호
+    @Column(nullable = false, unique = true)
+    private String username;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Column(nullable = false, unique = true)
+    private String email;
+
+    @Column(nullable = false)
+    @Enumerated(value = EnumType.STRING)
+    private BackRoleEnum role;
 
 
-    public Back(BackRequestDto requestDto) {
-        this.title = requestDto.getTitle();
-        this.name = requestDto.getName();
-        this.pw = requestDto.getPw();
-        this.contents = requestDto.getContents();
+
+    public Back(String username, String password, String email, BackRoleEnum role) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.role = role;
     }
 
-    public void update(BackRequestDto requestDto) {
-        this.title = requestDto.getTitle();
-        this.name = requestDto.getName();
-        this.contents = requestDto.getContents();
-    }
-
+//    public void update(BackRequestDto requestDto) {
+//        this.title = requestDto.getTitle();
+//        this.name = requestDto.getName();
+//        this.contents = requestDto.getContents();
+//    }
 }
